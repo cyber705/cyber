@@ -4,17 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Road Trip · 2025</title>
+<title>Road Trip</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0a0a0f;--paper:#f5f0e8;--gold:#c9a84c;--muted:#7a7060;--accent:#2d5a8c;--r:12px;}
+:root{--ink:#0a0a0f;--paper:#f5f0e8;--gold:#c9a84c;--muted:#7a7060;--r:12px;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{background:var(--ink);color:var(--paper);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4;}
 .hero{position:relative;height:100svh;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(45,90,140,.35) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.2) 0%,transparent 50%),radial-gradient(ellipse at 60% 80%,rgba(45,90,140,.15) 0%,transparent 50%),linear-gradient(160deg,#0a0a0f 0%,#111118 40%,#0d0d14 100%);}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(45,90,140,.35) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.2) 0%,transparent 50%),linear-gradient(160deg,#0a0a0f 0%,#111118 40%,#0d0d14 100%);}
 .hero-map{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30 L60 30 M30 0 L30 60' stroke='%23c9a84c' stroke-width='.5'/%3E%3Ccircle cx='30' cy='30' r='20' fill='none' stroke='%23c9a84c' stroke-width='.3'/%3E%3C/svg%3E");background-size:60px 60px;}
 .hero-content{position:relative;text-align:center;padding:0 24px;}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,12vw,88px);font-weight:300;line-height:.95;letter-spacing:-2px;margin-bottom:24px;opacity:0;animation:fadeUp .8s ease .4s forwards;}
@@ -63,278 +61,128 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .info-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
 .info-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;}
 .info-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.places-section{margin:32px 0;}
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2);}
+.places-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.place-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s;}
+.place-card:hover{border-color:rgba(201,168,76,.2);transform:translateY(-2px);}
+.place-card-img{aspect-ratio:4/3;overflow:hidden;background:rgba(255,255,255,.04);}
+.place-card-img img{width:100%;height:100%;object-fit:cover;}
+.place-card-body{padding:12px;}
+.place-card-city{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.place-card-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;margin-bottom:4px;}
+.place-card-desc{font-size:11px;color:var(--muted);line-height:1.5;}
 .safe{height:env(safe-area-inset-bottom,0);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
 </style>
 </head>
 <body>
-
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-map"></div>
   <div class="hero-content">
     <h1 class="hero-title">Road<br><em>Trip</em></h1>
     <div class="hero-route">
-      <span>Rotterdam → Kinderdijk → Brujas → París</span>
+      <span>Rotterdam &rarr; Kinderdijk &rarr; Brujas &rarr; Par&iacute;s</span>
       <div class="dot"></div>
-      <span>París → Chambord → Burdeos</span>
+      <span>Par&iacute;s &rarr; Chambord &rarr; Burdeos</span>
       <div class="dot"></div>
-      <span>Burdeos → San Sebastián → Madrid</span>
+      <span>Burdeos &rarr; San Sebasti&aacute;n &rarr; Madrid</span>
     </div>
   </div>
-  <div class="hero-scroll">
-    <span>Explorar</span>
-    <div class="scroll-line"></div>
-  </div>
+  <div class="hero-scroll"><span>Explorar</span><div class="scroll-line"></div></div>
 </section>
-
 <nav class="tabs-nav">
   <div class="tabs-inner">
     <button class="tab-btn active" onclick="setTab('ruta')">Ruta</button>
     <button class="tab-btn" onclick="setTab('info')">Info</button>
+    <button class="tab-btn" onclick="setTab('lugares')">Lugares</button>
   </div>
 </nav>
-
 <div class="content">
   <div class="tab-panel active" id="tab-ruta">
-<div class="day-card">
-      <div class="day-header">
-        <div class="day-num">01</div>
-        <div class="day-info">
-          <div class="day-label">Día 1</div>
-          <div class="day-title">Miércoles</div>
-          <div class="day-km">571 km · 7h 37 min de conducción</div>
-        </div>
-      </div>
-      <div class="route-img">
-        <img src="IMG_0386.jpeg" alt="Ruta miércoles">
-        <div class="route-img-overlay"></div>
-        <div class="route-img-label">Rotterdam → Kinderdijk → Brujas → París</div>
-      </div>
+    <div class="day-card">
+      <div class="day-header"><div class="day-num">01</div><div class="day-info"><div class="day-label">D&iacute;a 1</div><div class="day-title">Mi&eacute;rcoles</div><div class="day-km">571 km &middot; 7h 37 min de conducci&oacute;n</div></div></div>
+      <div class="route-img"><img src="IMG_0386.jpeg" alt="Ruta"><div class="route-img-overlay"></div><div class="route-img-label">Rotterdam &rarr; Kinderdijk &rarr; Brujas &rarr; Par&iacute;s</div></div>
       <div class="stops">
-        <div class="stop">
-          <div class="stop-time">12:30</div>
-          <div class="stop-body">
-            <div class="stop-title">Rotterdam</div>
-            <div class="stop-detail">Salida hacia Kinderdijk</div>
-            <span class="stop-tag drive">30 km</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">13:00</div>
-          <div class="stop-body">
-            <div class="stop-title">Kinderdijk ⚙️</div>
-            <div class="stop-detail">Visita a los molinos de viento más famosos de Holanda. Patrimonio UNESCO desde 1997.</div>
-            <span class="stop-tag visit">Parada recomendada</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">14:30</div>
-          <div class="stop-body">
-            <div class="stop-title">Kinderdijk → Brujas</div>
-            <div class="stop-detail">200 km · aprox. 2h 30 min</div>
-            <span class="stop-tag drive">Conducción</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">17:00</div>
-          <div class="stop-body">
-            <div class="stop-title">Brujas 🏰</div>
-            <div class="stop-detail">Paseo por el casco histórico medieval, canales y Markt. Imprescindible: chocolate belga y una cerveza local.</div>
-            <span class="stop-tag visit">3 horas libres</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">20:00</div>
-          <div class="stop-body">
-            <div class="stop-title">Brujas → París</div>
-            <div class="stop-detail">341 km · aprox. 3h 37 min</div>
-            <span class="stop-tag drive">Conducción nocturna</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">23:37</div>
-          <div class="stop-body">
-            <div class="stop-title">París 🗼</div>
-            <div class="stop-detail">Llegada y descanso</div>
-            <span class="stop-tag sleep">Noche en París</span>
-          </div>
-        </div>
+        <div class="stop"><div class="stop-time">12:30</div><div class="stop-body"><div class="stop-title">Rotterdam</div><div class="stop-detail">Salida hacia Kinderdijk</div><span class="stop-tag drive">30 km</span></div></div>
+        <div class="stop"><div class="stop-time">13:00</div><div class="stop-body"><div class="stop-title">Kinderdijk</div><div class="stop-detail">Visita a los molinos de viento m&aacute;s famosos de Holanda. Patrimonio UNESCO desde 1997.</div><span class="stop-tag visit">Parada recomendada</span></div></div>
+        <div class="stop"><div class="stop-time">14:30</div><div class="stop-body"><div class="stop-title">Kinderdijk &rarr; Brujas</div><div class="stop-detail">200 km &middot; aprox. 2h 30 min</div><span class="stop-tag drive">Conducci&oacute;n</span></div></div>
+        <div class="stop"><div class="stop-time">17:00</div><div class="stop-body"><div class="stop-title">Brujas</div><div class="stop-detail">Paseo por el casco hist&oacute;rico medieval, canales y Markt. Imprescindible: chocolate belga y una cerveza local.</div><span class="stop-tag visit">3 horas libres</span></div></div>
+        <div class="stop"><div class="stop-time">20:00</div><div class="stop-body"><div class="stop-title">Brujas &rarr; Par&iacute;s</div><div class="stop-detail">341 km &middot; aprox. 3h 37 min</div><span class="stop-tag drive">Conducci&oacute;n nocturna</span></div></div>
+        <div class="stop"><div class="stop-time">23:37</div><div class="stop-body"><div class="stop-title">Par&iacute;s</div><div class="stop-detail">Llegada y descanso</div><span class="stop-tag sleep">Noche en Par&iacute;s</span></div></div>
       </div>
     </div>
-
     <div class="gold-sep"></div>
-
     <div class="day-card">
-      <div class="day-header">
-        <div class="day-num">02</div>
-        <div class="day-info">
-          <div class="day-label">Día 2</div>
-          <div class="day-title">Jueves</div>
-          <div class="day-km">597 km · 8h 32 min de conducción</div>
-        </div>
-      </div>
-      <div class="route-img">
-        <img src="IMG_0387.jpeg" alt="Ruta jueves">
-        <div class="route-img-overlay"></div>
-        <div class="route-img-label">París → Chambord → Burdeos</div>
-      </div>
+      <div class="day-header"><div class="day-num">02</div><div class="day-info"><div class="day-label">D&iacute;a 2</div><div class="day-title">Jueves</div><div class="day-km">597 km &middot; 8h 32 min de conducci&oacute;n</div></div></div>
+      <div class="route-img"><img src="IMG_0387.jpeg" alt="Ruta"><div class="route-img-overlay"></div><div class="route-img-label">Par&iacute;s &rarr; Chambord &rarr; Burdeos</div></div>
       <div class="stops">
-        <div class="stop">
-          <div class="stop-time">09:00</div>
-          <div class="stop-body">
-            <div class="stop-title">París 🗼</div>
-            <div class="stop-detail">Mañana en la ciudad. Torre Eiffel, Campos Elíseos, Louvre.</div>
-            <span class="stop-tag visit">4 horas libres</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">13:00</div>
-          <div class="stop-body">
-            <div class="stop-title">París → Chambord</div>
-            <div class="stop-detail">190 km · aprox. 2h</div>
-            <span class="stop-tag drive">Conducción</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">15:00</div>
-          <div class="stop-body">
-            <div class="stop-title">Castillo de Chambord 🏯</div>
-            <div class="stop-detail">El castillo del Renacimiento francés más grande del mundo. Escalera de doble hélice atribuida a Da Vinci.</div>
-            <span class="stop-tag visit">Parada imprescindible</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">16:30</div>
-          <div class="stop-body">
-            <div class="stop-title">Chambord → Burdeos</div>
-            <div class="stop-detail">407 km · aprox. 4h 32 min</div>
-            <span class="stop-tag drive">Conducción</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">21:02</div>
-          <div class="stop-body">
-            <div class="stop-title">Burdeos 🍷</div>
-            <div class="stop-detail">Llegada. Cena en la ciudad del vino más famosa del mundo.</div>
-            <span class="stop-tag sleep">Noche en Burdeos</span>
-          </div>
-        </div>
+        <div class="stop"><div class="stop-time">09:00</div><div class="stop-body"><div class="stop-title">Par&iacute;s</div><div class="stop-detail">Ma&ntilde;ana en la ciudad. Torre Eiffel, Campos El&iacute;seos, Louvre.</div><span class="stop-tag visit">4 horas libres</span></div></div>
+        <div class="stop"><div class="stop-time">13:00</div><div class="stop-body"><div class="stop-title">Par&iacute;s &rarr; Chambord</div><div class="stop-detail">190 km &middot; aprox. 2h</div><span class="stop-tag drive">Conducci&oacute;n</span></div></div>
+        <div class="stop"><div class="stop-time">15:00</div><div class="stop-body"><div class="stop-title">Castillo de Chambord</div><div class="stop-detail">El castillo del Renacimiento franc&eacute;s m&aacute;s grande del mundo. Escalera de doble h&eacute;lice atribuida a Da Vinci.</div><span class="stop-tag visit">Parada imprescindible</span></div></div>
+        <div class="stop"><div class="stop-time">16:30</div><div class="stop-body"><div class="stop-title">Chambord &rarr; Burdeos</div><div class="stop-detail">407 km &middot; aprox. 4h 32 min</div><span class="stop-tag drive">Conducci&oacute;n</span></div></div>
+        <div class="stop"><div class="stop-time">21:02</div><div class="stop-body"><div class="stop-title">Burdeos</div><div class="stop-detail">Llegada. Cena en la ciudad del vino m&aacute;s famosa del mundo.</div><span class="stop-tag sleep">Noche en Burdeos</span></div></div>
       </div>
     </div>
-
     <div class="gold-sep"></div>
-
     <div class="day-card">
-      <div class="day-header">
-        <div class="day-num">03</div>
-        <div class="day-info">
-          <div class="day-label">Día 3</div>
-          <div class="day-title">Viernes</div>
-          <div class="day-km">723 km · 9h 24 min de conducción</div>
-        </div>
-      </div>
-      <div class="route-img">
-        <img src="IMG_0389.jpeg" alt="Ruta viernes">
-        <div class="route-img-overlay"></div>
-        <div class="route-img-label">Burdeos → San Sebastián → Madrid</div>
-      </div>
+      <div class="day-header"><div class="day-num">03</div><div class="day-info"><div class="day-label">D&iacute;a 3</div><div class="day-title">Viernes</div><div class="day-km">723 km &middot; 9h 24 min de conducci&oacute;n</div></div></div>
+      <div class="route-img"><img src="IMG_0389.jpeg" alt="Ruta"><div class="route-img-overlay"></div><div class="route-img-label">Burdeos &rarr; San Sebasti&aacute;n &rarr; Madrid</div></div>
       <div class="stops">
-        <div class="stop">
-          <div class="stop-time">09:00</div>
-          <div class="stop-body">
-            <div class="stop-title">Burdeos → San Sebastián</div>
-            <div class="stop-detail">283 km · aprox. 3h 49 min</div>
-            <span class="stop-tag drive">Conducción</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">12:49</div>
-          <div class="stop-body">
-            <div class="stop-title">San Sebastián 🏄</div>
-            <div class="stop-detail">La Concha, una de las mejores playas urbanas de Europa. Pintxos en el casco viejo.</div>
-            <span class="stop-tag visit">2 horas libres</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">15:00</div>
-          <div class="stop-body">
-            <div class="stop-title">San Sebastián → Madrid</div>
-            <div class="stop-detail">440 km · aprox. 4h 24 min</div>
-            <span class="stop-tag drive">Conducción</span>
-          </div>
-        </div>
-        <div class="stop">
-          <div class="stop-time">19:24</div>
-          <div class="stop-body">
-            <div class="stop-title">Madrid 🏠</div>
-            <div class="stop-detail">Fin del viaje. 1.891 km recorridos en 3 días.</div>
-            <span class="stop-tag sleep">¡Llegada a casa!</span>
-          </div>
-        </div>
+        <div class="stop"><div class="stop-time">09:00</div><div class="stop-body"><div class="stop-title">Burdeos &rarr; San Sebasti&aacute;n</div><div class="stop-detail">283 km &middot; aprox. 3h 49 min</div><span class="stop-tag drive">Conducci&oacute;n</span></div></div>
+        <div class="stop"><div class="stop-time">12:49</div><div class="stop-body"><div class="stop-title">San Sebasti&aacute;n</div><div class="stop-detail">La Concha, una de las mejores playas urbanas de Europa. Pintxos en el casco viejo.</div><span class="stop-tag visit">2 horas libres</span></div></div>
+        <div class="stop"><div class="stop-time">15:00</div><div class="stop-body"><div class="stop-title">San Sebasti&aacute;n &rarr; Madrid</div><div class="stop-detail">440 km &middot; aprox. 4h 24 min</div><span class="stop-tag drive">Conducci&oacute;n</span></div></div>
+        <div class="stop"><div class="stop-time">19:24</div><div class="stop-body"><div class="stop-title">Madrid</div><div class="stop-detail">Fin del viaje. 1.891 km recorridos en 3 d&iacute;as.</div><span class="stop-tag sleep">&iexcl;Llegada a casa!</span></div></div>
       </div>
     </div>
   </div>
-
   <div class="tab-panel" id="tab-info">
     <div class="info-grid" style="grid-template-columns:1fr 1fr;margin-top:32px;">
-      <div class="info-card">
-        <div class="info-card-label">Distancia total</div>
-        <div class="info-card-val">1.891 km</div>
-        <div class="info-card-sub">3 días de ruta</div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-label">Conducción total</div>
-        <div class="info-card-val">25h 33m</div>
-        <div class="info-card-sub">Sin paradas</div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-label">Países</div>
-        <div class="info-card-val">4</div>
-        <div class="info-card-sub">NL · BE · FR · ES</div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-label">Paradas</div>
-        <div class="info-card-val">8</div>
-        <div class="info-card-sub">Ciudades visitadas</div>
+      <div class="info-card"><div class="info-card-label">Distancia total</div><div class="info-card-val">1.891 km</div><div class="info-card-sub">3 d&iacute;as de ruta</div></div>
+      <div class="info-card"><div class="info-card-label">Conducci&oacute;n total</div><div class="info-card-val">25h 33m</div><div class="info-card-sub">Sin paradas</div></div>
+      <div class="info-card"><div class="info-card-label">Pa&iacute;ses</div><div class="info-card-val">4</div><div class="info-card-sub">NL &middot; BE &middot; FR &middot; ES</div></div>
+      <div class="info-card"><div class="info-card-label">Paradas</div><div class="info-card-val">8</div><div class="info-card-sub">Ciudades visitadas</div></div>
+    </div>
+    <div class="info-card" style="margin-top:12px;"><div class="info-card-label">Resumen por d&iacute;as</div><div class="info-list" style="margin-top:12px;"><div class="info-item">Mi&eacute;rcoles &mdash; Rotterdam &rarr; Par&iacute;s &middot; 571 km &middot; Kinderdijk + Brujas</div><div class="info-item">Jueves &mdash; Par&iacute;s &rarr; Burdeos &middot; 597 km &middot; Par&iacute;s + Chambord</div><div class="info-item">Viernes &mdash; Burdeos &rarr; Madrid &middot; 723 km &middot; San Sebasti&aacute;n</div></div></div>
+    <div class="info-card" style="margin-top:12px;"><div class="info-card-label">Noches</div><div class="info-list" style="margin-top:12px;"><div class="info-item">Noche 1 &mdash; Par&iacute;s</div><div class="info-item">Noche 2 &mdash; Burdeos</div><div class="info-item">Noche 3 &mdash; Madrid</div></div></div>
+    <div class="info-card" style="margin-top:12px;"><div class="info-card-label">Consejos pr&aacute;cticos</div><div class="info-list" style="margin-top:12px;"><div class="info-item">Francia tiene peajes &mdash; lleva tarjeta o efectivo</div><div class="info-item">Reserva parking en Par&iacute;s con antelaci&oacute;n</div><div class="info-item">En Kinderdijk compra entradas online para evitar colas</div><div class="info-item">Chambord abre hasta las 18h &mdash; llega antes de las 17h</div><div class="info-item">Los pintxos en San Sebasti&aacute;n son baratos y espectaculares</div><div class="info-item">Lleva chaqueta &mdash; el norte de Europa en abril sorprende</div></div></div>
+    <div class="safe"></div>
+  </div>
+  <div class="tab-panel" id="tab-lugares">
+    <div class="places-section">
+      <div class="section-label">D&iacute;a 1 &middot; Holanda &middot; B&eacute;lgica &middot; Francia</div>
+      <div class="places-grid">
+        <div class="place-card" style="grid-column:1/-1;"><div class="place-card-img" style="aspect-ratio:16/7;"><img src="IMG_0386.jpeg" alt="Ruta 1" style="width:100%;height:100%;object-fit:contain;background:#0a0a0f;"></div><div class="place-card-body"><div class="place-card-city">Rotterdam &rarr; Kinderdijk &rarr; Brujas &rarr; Par&iacute;s</div><div class="place-card-name">Ruta del Mi&eacute;rcoles</div><div class="place-card-desc">571 km &middot; Molinos UNESCO &middot; Canales medievales &middot; Ciudad de la Luz</div></div></div>
+        <div class="place-card"><div class="place-card-img"><img src="kinder.png" alt="Kinderdijk"></div><div class="place-card-body"><div class="place-card-city">Kinderdijk &middot; Holanda</div><div class="place-card-name">Molinos de Viento</div><div class="place-card-desc">19 molinos del siglo XVIII. Patrimonio UNESCO desde 1997.</div></div></div>
+        <div class="place-card"><div class="place-card-img"><img src="brujas.png" alt="Brujas"></div><div class="place-card-body"><div class="place-card-city">Brujas &middot; B&eacute;lgica</div><div class="place-card-name">Casco Hist&oacute;rico</div><div class="place-card-desc">La Venecia del Norte. Canales medievales y chocolate belga.</div></div></div>
+        <div class="place-card" style="grid-column:1/-1;"><div class="place-card-img" style="aspect-ratio:16/7;"><img src="paris.png" alt="Paris" style="width:100%;height:100%;object-fit:cover;"></div><div class="place-card-body"><div class="place-card-city">Par&iacute;s &middot; Francia</div><div class="place-card-name">Llegada a la Ciudad de la Luz</div><div class="place-card-desc">Noche en Par&iacute;s tras 571 km. La Torre Eiffel iluminada os espera.</div></div></div>
       </div>
     </div>
-    <div class="info-card" style="margin-top:12px;">
-      <div class="info-card-label">Resumen por días</div>
-      <div class="info-list" style="margin-top:12px;">
-        <div class="info-item">Miércoles — Rotterdam → París · 571 km · Kinderdijk + Brujas</div>
-        <div class="info-item">Jueves — París → Burdeos · 597 km · París + Chambord</div>
-        <div class="info-item">Viernes — Burdeos → Madrid · 723 km · San Sebastián</div>
+    <div class="places-section">
+      <div class="section-label">D&iacute;a 2 &middot; Francia</div>
+      <div class="places-grid">
+        <div class="place-card" style="grid-column:1/-1;"><div class="place-card-img" style="aspect-ratio:16/7;"><img src="IMG_0387.jpeg" alt="Ruta 2" style="width:100%;height:100%;object-fit:contain;background:#0a0a0f;"></div><div class="place-card-body"><div class="place-card-city">Par&iacute;s &rarr; Chambord &rarr; Burdeos</div><div class="place-card-name">Ruta del Jueves</div><div class="place-card-desc">597 km &middot; Torre Eiffel &middot; Renacimiento franc&eacute;s &middot; Capital del vino</div></div></div>
+        <div class="place-card"><div class="place-card-img"><img src="paris.png" alt="Paris"></div><div class="place-card-body"><div class="place-card-city">Par&iacute;s &middot; Francia</div><div class="place-card-name">La Ciudad de la Luz</div><div class="place-card-desc">Torre Eiffel &middot; Campos El&iacute;seos &middot; Louvre</div></div></div>
+        <div class="place-card"><div class="place-card-img"><img src="burdeos.png" alt="Burdeos"></div><div class="place-card-body"><div class="place-card-city">Burdeos &middot; Francia</div><div class="place-card-name">Capital del Vino</div><div class="place-card-desc">Patrimonio UNESCO. Cuna del mejor vino del mundo.</div></div></div>
       </div>
     </div>
-    <div class="info-card" style="margin-top:12px;">
-      <div class="info-card-label">Noches</div>
-      <div class="info-list" style="margin-top:12px;">
-        <div class="info-item">Noche 1 — París 🗼</div>
-        <div class="info-item">Noche 2 — Burdeos 🍷</div>
-        <div class="info-item">Noche 3 — Madrid 🏠</div>
-      </div>
-    </div>
-    <div class="info-card" style="margin-top:12px;">
-      <div class="info-card-label">Consejos prácticos</div>
-      <div class="info-list" style="margin-top:12px;">
-        <div class="info-item">Francia tiene peajes — lleva tarjeta o efectivo</div>
-        <div class="info-item">Reserva parking en París con antelación</div>
-        <div class="info-item">En Kinderdijk compra entradas online para evitar colas</div>
-        <div class="info-item">Chambord abre hasta las 18h — llega antes de las 17h</div>
-        <div class="info-item">Los pintxos en San Sebastián son baratos y espectaculares</div>
-        <div class="info-item">Lleva chaqueta — el norte de Europa en abril sorprende</div>
+    <div class="places-section">
+      <div class="section-label">D&iacute;a 3 &middot; Espa&ntilde;a</div>
+      <div class="places-grid">
+        <div class="place-card" style="grid-column:1/-1;"><div class="place-card-img" style="aspect-ratio:16/7;"><img src="IMG_0389.jpeg" alt="Ruta 3" style="width:100%;height:100%;object-fit:contain;background:#0a0a0f;"></div><div class="place-card-body"><div class="place-card-city">Burdeos &rarr; San Sebasti&aacute;n &rarr; Madrid</div><div class="place-card-name">Ruta del Viernes</div><div class="place-card-desc">723 km &middot; Pintxos &middot; Playa La Concha &middot; Llegada a casa</div></div></div>
+        <div class="place-card"><div class="place-card-img"><img src="sanse.png" alt="San Sebastian"></div><div class="place-card-body"><div class="place-card-city">San Sebasti&aacute;n</div><div class="place-card-name">La Concha</div><div class="place-card-desc">Una de las mejores playas urbanas de Europa. Pintxos imprescindibles.</div></div></div>
+        <div class="place-card" style="background:linear-gradient(135deg,rgba(45,90,140,.15),rgba(201,168,76,.08));border-color:rgba(201,168,76,.15);"><div class="place-card-body" style="padding:20px;display:flex;flex-direction:column;justify-content:center;height:100%;min-height:160px;"><div class="place-card-city">Total del viaje</div><div class="place-card-name" style="font-family:'Cormorant Garamond',serif;font-size:36px;margin:8px 0;">1.891 km</div><div class="place-card-desc">3 d&iacute;as &middot; 4 pa&iacute;ses &middot; 8 ciudades</div></div></div>
       </div>
     </div>
     <div class="safe"></div>
   </div>
-
 </div>
-
 <script>
 function setTab(name) {
-  var map = {'ruta':'Ruta','info':'Info'};
+  var map = {'ruta':'Ruta','info':'Info','lugares':'Lugares'};
   document.querySelectorAll('.tab-btn').forEach(function(b) {
     b.classList.toggle('active', b.textContent === map[name]);
   });
@@ -345,4 +193,4 @@ function setTab(name) {
 }
 </script>
 </body>
-</html>  
+</html>
