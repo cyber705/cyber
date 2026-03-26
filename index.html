@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Road Trip · 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0f;--paper:#f5f0e8;--gold:#c9a84c;--muted:#7a7060;--accent:#2d5a8c;--r:12px;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--paper);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4;}
+.hero{position:relative;height:100svh;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(45,90,140,.35) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.2) 0%,transparent 50%),radial-gradient(ellipse at 60% 80%,rgba(45,90,140,.15) 0%,transparent 50%),linear-gradient(160deg,#0a0a0f 0%,#111118 40%,#0d0d14 100%);}
+.hero-map{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30 L60 30 M30 0 L30 60' stroke='%23c9a84c' stroke-width='.5'/%3E%3Ccircle cx='30' cy='30' r='20' fill='none' stroke='%23c9a84c' stroke-width='.3'/%3E%3C/svg%3E");background-size:60px 60px;}
+.hero-content{position:relative;text-align:center;padding:0 24px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,12vw,88px);font-weight:300;line-height:.95;letter-spacing:-2px;margin-bottom:24px;opacity:0;animation:fadeUp .8s ease .4s forwards;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-route{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .8s ease .8s forwards;}
+.hero-route span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(14px,3.5vw,18px);font-weight:300;color:var(--paper);letter-spacing:.5px;}
+.hero-route .dot{width:20px;height:1px;background:rgba(201,168,76,.4);}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .8s ease 1.2s forwards;}
+.hero-scroll span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease infinite;}
+.tabs-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.15);padding:0 16px;}
+.tabs-inner{max-width:700px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;}
+.tabs-inner::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;padding:16px 20px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;position:relative;transition:color .2s;white-space:nowrap;}
+.tab-btn.active{color:var(--gold);}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:20px;right:20px;height:2px;background:var(--gold);border-radius:2px 2px 0 0;}
+.content{max-width:700px;margin:0 auto;padding:0 16px 80px;}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+.day-card{margin:32px 0;opacity:0;animation:fadeUp .6s ease forwards;}
+.day-card:nth-child(1){animation-delay:.1s;}.day-card:nth-child(2){animation-delay:.2s;}.day-card:nth-child(3){animation-delay:.3s;}
+.day-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;}
+.day-num{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;line-height:1;color:rgba(201,168,76,.15);flex-shrink:0;margin-top:-8px;}
+.day-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;line-height:1.1;margin-bottom:4px;}
+.day-km{font-size:12px;color:var(--muted);}
+.route-img{width:100%;border-radius:var(--r);overflow:hidden;margin-bottom:20px;position:relative;background:#0a0a0f;border:1px solid rgba(201,168,76,.1);}
+.route-img img{width:100%;display:block;aspect-ratio:4/3;object-fit:contain;background:#0a0a0f;}
+.route-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,.6) 0%,transparent 50%);}
+.route-img-label{position:absolute;bottom:12px;left:16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.stops{display:flex;flex-direction:column;}
+.stop{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.stop:last-child{border-bottom:none;}
+.stop-time{font-size:11px;color:var(--gold);font-weight:500;white-space:nowrap;min-width:60px;padding-top:1px;}
+.stop-title{font-size:14px;font-weight:500;margin-bottom:2px;}
+.stop-detail{font-size:12px;color:var(--muted);line-height:1.5;}
+.stop-tag{display:inline-block;margin-top:4px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;border:1px solid;font-weight:500;}
+.stop-tag.drive{color:var(--muted);border-color:rgba(122,112,96,.3);}
+.stop-tag.visit{color:var(--gold);border-color:rgba(201,168,76,.3);}
+.stop-tag.sleep{color:#7ab8c9;border-color:rgba(122,184,201,.3);}
+.gold-sep{width:40px;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin:24px 0;}
+.info-grid{display:grid;gap:12px;margin:24px 0;}
+.info-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:16px 18px;}
+.info-card-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.info-card-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:4px;}
+.info-card-sub{font-size:12px;color:var(--muted);}
+.info-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.info-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;}
+.info-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.safe{height:env(safe-area-inset-bottom,0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-map"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Road<br><em>Trip</em></h1>
+    <div class="hero-route">
+      <span>Rotterdam → Kinderdijk → Brujas → París</span>
+      <div class="dot"></div>
+      <span>París → Chambord → Burdeos</span>
+      <div class="dot"></div>
+      <span>Burdeos → San Sebastián → Madrid</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="setTab('ruta')">Ruta</button>
+    <button class="tab-btn" onclick="setTab('info')">Info</button>
+  </div>
+</nav>
+
+<div class="content">
+  <div class="tab-panel active" id="tab-ruta">
+<div class="day-card">
+      <div class="day-header">
+        <div class="day-num">01</div>
+        <div class="day-info">
+          <div class="day-label">Día 1</div>
+          <div class="day-title">Miércoles</div>
+          <div class="day-km">571 km · 7h 37 min de conducción</div>
+        </div>
+      </div>
+      <div class="route-img">
+        <img src="IMG_0386.jpeg" alt="Ruta miércoles">
+        <div class="route-img-overlay"></div>
+        <div class="route-img-label">Rotterdam → Kinderdijk → Brujas → París</div>
+      </div>
+      <div class="stops">
+        <div class="stop">
+          <div class="stop-time">12:30</div>
+          <div class="stop-body">
+            <div class="stop-title">Rotterdam</div>
+            <div class="stop-detail">Salida hacia Kinderdijk</div>
+            <span class="stop-tag drive">30 km</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">13:00</div>
+          <div class="stop-body">
+            <div class="stop-title">Kinderdijk ⚙️</div>
+            <div class="stop-detail">Visita a los molinos de viento más famosos de Holanda. Patrimonio UNESCO desde 1997.</div>
+            <span class="stop-tag visit">Parada recomendada</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">14:30</div>
+          <div class="stop-body">
+            <div class="stop-title">Kinderdijk → Brujas</div>
+            <div class="stop-detail">200 km · aprox. 2h 30 min</div>
+            <span class="stop-tag drive">Conducción</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">17:00</div>
+          <div class="stop-body">
+            <div class="stop-title">Brujas 🏰</div>
+            <div class="stop-detail">Paseo por el casco histórico medieval, canales y Markt. Imprescindible: chocolate belga y una cerveza local.</div>
+            <span class="stop-tag visit">3 horas libres</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">20:00</div>
+          <div class="stop-body">
+            <div class="stop-title">Brujas → París</div>
+            <div class="stop-detail">341 km · aprox. 3h 37 min</div>
+            <span class="stop-tag drive">Conducción nocturna</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">23:37</div>
+          <div class="stop-body">
+            <div class="stop-title">París 🗼</div>
+            <div class="stop-detail">Llegada y descanso</div>
+            <span class="stop-tag sleep">Noche en París</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-sep"></div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">02</div>
+        <div class="day-info">
+          <div class="day-label">Día 2</div>
+          <div class="day-title">Jueves</div>
+          <div class="day-km">597 km · 8h 32 min de conducción</div>
+        </div>
+      </div>
+      <div class="route-img">
+        <img src="IMG_0387.jpeg" alt="Ruta jueves">
+        <div class="route-img-overlay"></div>
+        <div class="route-img-label">París → Chambord → Burdeos</div>
+      </div>
+      <div class="stops">
+        <div class="stop">
+          <div class="stop-time">09:00</div>
+          <div class="stop-body">
+            <div class="stop-title">París 🗼</div>
+            <div class="stop-detail">Mañana en la ciudad. Torre Eiffel, Campos Elíseos, Louvre.</div>
+            <span class="stop-tag visit">4 horas libres</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">13:00</div>
+          <div class="stop-body">
+            <div class="stop-title">París → Chambord</div>
+            <div class="stop-detail">190 km · aprox. 2h</div>
+            <span class="stop-tag drive">Conducción</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">15:00</div>
+          <div class="stop-body">
+            <div class="stop-title">Castillo de Chambord 🏯</div>
+            <div class="stop-detail">El castillo del Renacimiento francés más grande del mundo. Escalera de doble hélice atribuida a Da Vinci.</div>
+            <span class="stop-tag visit">Parada imprescindible</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">16:30</div>
+          <div class="stop-body">
+            <div class="stop-title">Chambord → Burdeos</div>
+            <div class="stop-detail">407 km · aprox. 4h 32 min</div>
+            <span class="stop-tag drive">Conducción</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">21:02</div>
+          <div class="stop-body">
+            <div class="stop-title">Burdeos 🍷</div>
+            <div class="stop-detail">Llegada. Cena en la ciudad del vino más famosa del mundo.</div>
+            <span class="stop-tag sleep">Noche en Burdeos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-sep"></div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">03</div>
+        <div class="day-info">
+          <div class="day-label">Día 3</div>
+          <div class="day-title">Viernes</div>
+          <div class="day-km">723 km · 9h 24 min de conducción</div>
+        </div>
+      </div>
+      <div class="route-img">
+        <img src="IMG_0389.jpeg" alt="Ruta viernes">
+        <div class="route-img-overlay"></div>
+        <div class="route-img-label">Burdeos → San Sebastián → Madrid</div>
+      </div>
+      <div class="stops">
+        <div class="stop">
+          <div class="stop-time">09:00</div>
+          <div class="stop-body">
+            <div class="stop-title">Burdeos → San Sebastián</div>
+            <div class="stop-detail">283 km · aprox. 3h 49 min</div>
+            <span class="stop-tag drive">Conducción</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">12:49</div>
+          <div class="stop-body">
+            <div class="stop-title">San Sebastián 🏄</div>
+            <div class="stop-detail">La Concha, una de las mejores playas urbanas de Europa. Pintxos en el casco viejo.</div>
+            <span class="stop-tag visit">2 horas libres</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">15:00</div>
+          <div class="stop-body">
+            <div class="stop-title">San Sebastián → Madrid</div>
+            <div class="stop-detail">440 km · aprox. 4h 24 min</div>
+            <span class="stop-tag drive">Conducción</span>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">19:24</div>
+          <div class="stop-body">
+            <div class="stop-title">Madrid 🏠</div>
+            <div class="stop-detail">Fin del viaje. 1.891 km recorridos en 3 días.</div>
+            <span class="stop-tag sleep">¡Llegada a casa!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-info">
+    <div class="info-grid" style="grid-template-columns:1fr 1fr;margin-top:32px;">
+      <div class="info-card">
+        <div class="info-card-label">Distancia total</div>
+        <div class="info-card-val">1.891 km</div>
+        <div class="info-card-sub">3 días de ruta</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Conducción total</div>
+        <div class="info-card-val">25h 33m</div>
+        <div class="info-card-sub">Sin paradas</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Países</div>
+        <div class="info-card-val">4</div>
+        <div class="info-card-sub">NL · BE · FR · ES</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Paradas</div>
+        <div class="info-card-val">8</div>
+        <div class="info-card-sub">Ciudades visitadas</div>
+      </div>
+    </div>
+    <div class="info-card" style="margin-top:12px;">
+      <div class="info-card-label">Resumen por días</div>
+      <div class="info-list" style="margin-top:12px;">
+        <div class="info-item">Miércoles — Rotterdam → París · 571 km · Kinderdijk + Brujas</div>
+        <div class="info-item">Jueves — París → Burdeos · 597 km · París + Chambord</div>
+        <div class="info-item">Viernes — Burdeos → Madrid · 723 km · San Sebastián</div>
+      </div>
+    </div>
+    <div class="info-card" style="margin-top:12px;">
+      <div class="info-card-label">Noches</div>
+      <div class="info-list" style="margin-top:12px;">
+        <div class="info-item">Noche 1 — París 🗼</div>
+        <div class="info-item">Noche 2 — Burdeos 🍷</div>
+        <div class="info-item">Noche 3 — Madrid 🏠</div>
+      </div>
+    </div>
+    <div class="info-card" style="margin-top:12px;">
+      <div class="info-card-label">Consejos prácticos</div>
+      <div class="info-list" style="margin-top:12px;">
+        <div class="info-item">Francia tiene peajes — lleva tarjeta o efectivo</div>
+        <div class="info-item">Reserva parking en París con antelación</div>
+        <div class="info-item">En Kinderdijk compra entradas online para evitar colas</div>
+        <div class="info-item">Chambord abre hasta las 18h — llega antes de las 17h</div>
+        <div class="info-item">Los pintxos en San Sebastián son baratos y espectaculares</div>
+        <div class="info-item">Lleva chaqueta — el norte de Europa en abril sorprende</div>
+      </div>
+    </div>
+    <div class="safe"></div>
+  </div>
+
+</div>
+
+<script>
+function setTab(name) {
+  var map = {'ruta':'Ruta','info':'Info'};
+  document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent === map[name]);
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'tab-' + name);
+  });
+  window.scrollTo({top: document.querySelector('.tabs-nav').offsetTop, behavior:'smooth'});
+}
+</script>
+</body>
+</html>  
